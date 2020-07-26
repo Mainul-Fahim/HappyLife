@@ -1,0 +1,166 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import 'config/config.dart';
+
+class EmailPassSignupScreen extends StatefulWidget {
+  @override
+  _EmailPassSignupScreenState createState() => _EmailPassSignupScreenState();
+}
+
+class _EmailPassSignupScreenState extends State<EmailPassSignupScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Email Sign Up"),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.only(
+                  top: 10,
+                ),
+                child: TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Email",
+                    hintText: "Write Email Here",
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.only(
+                  top: 5,
+                ),
+                child: TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Password",
+                    hintText: "Write Password Here",
+                  ),
+                  obscureText: true,
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  _signup();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        primaryColor,
+                        secondaryColor,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 20,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 20,
+                  ),
+                  child: Center(
+                      child: Text(
+                    "Signup With Email",
+                    style: TextStyle(color: Colors.white),
+                  )),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _signup() {
+    final String emailTXT = _emailController.text.trim();
+    final String passwordTXT = _passwordController.text;
+
+    if (emailTXT.isNotEmpty && passwordTXT.isNotEmpty) {
+      _auth
+          .createUserWithEmailAndPassword(
+              email: emailTXT, password: passwordTXT)
+          .then((user) {
+        showDialog(
+            context: context,
+            builder: (ctx) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                title: Text("Success"),
+                content: Text("Sign Up done,now you can Sign in."),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("OK"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      }).catchError((e) {
+        showDialog(
+            context: context,
+            builder: (ctx) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                title: Text("Error"),
+                content: Text("${e.message}"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("OK"),
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      });
+    } else {
+      showDialog(
+          context: context,
+          builder: (ctx) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              title: Text("Error"),
+              content: Text("Please provide email and password"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
+  }
+}

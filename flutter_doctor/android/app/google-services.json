@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "297169815756",
+    "firebase_url": "https://authentication-login-bc6cc.firebaseio.com",
+    "project_id": "authentication-login-bc6cc",
+    "storage_bucket": "authentication-login-bc6cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297169815756:android:d4da48128bd9ef859fda69",
+        "android_client_info": {
+          "package_name": "com.example.flutterdoctor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297169815756-eeicnecf0hs7o187evrmipefck9tm2ek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutterdoctor",
+            "certificate_hash": "0925b465d2b19710cb2177e77fe4224fc6d983c1"
+          }
+        },
+        {
+          "client_id": "297169815756-ihnmuga565404qa9kfkm26frkfsibcdk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0hd1HI_Jn1l9ZEQy2MIA5ZUZXPG53Ni0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297169815756-ihnmuga565404qa9kfkm26frkfsibcdk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
