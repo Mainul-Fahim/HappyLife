@@ -1,8 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdoctor/accountpage.dart';
+import 'package:flutterdoctor/profile.dart';
 import 'package:flutterdoctor/schedulepage.dart';
 import 'package:flutterdoctor/sessionpage.dart';
+import 'package:flutterdoctor/videorecordpage.dart';
+
+import 'billing.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,14 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
   var _pages = [
     SessionPage(),
     SchedulePage(),
-    AccountPage(),
+    ChatScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Home")),
+        title: Center(child: Text("")),
       ),
       drawer: Drawer(
         child: ListView(
@@ -56,14 +61,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            CustomListTile(Icons.person, 'Profile', () => {}),
+            CustomListTile(
+                Icons.person,
+                'Profile',
+                () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileScreen()))
+                    }),
             CustomListTile(Icons.settings, 'settings', () => {}),
-            CustomListTile(Icons.schedule, 'Appointment', () => {}),
+            CustomListTile(
+                Icons.schedule,
+                'Appointment',
+                () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VideoRecord()))
+                    }),
             CustomListTile(Icons.change_history, 'Change Counselor', () => {}),
             CustomListTile(
-                Icons.account_balance_wallet, 'Billing Option', () => {}),
+                Icons.account_balance_wallet,
+                'Billing Option',
+                () => {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Payment()))
+                    }),
             CustomListTile(Icons.contact_phone, 'Contact', () => {}),
-            CustomListTile(Icons.lock, 'Log Out', () => {}),
+            CustomListTile(
+                Icons.lock,
+                'Log Out',
+                () => {
+                      _auth.signOut(),
+                    }),
           ],
         ),
       ),
@@ -94,6 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class CustomListTile extends StatelessWidget {
   IconData icon;
   String text;

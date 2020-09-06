@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdoctor/config/config.dart';
 import 'package:flutterdoctor/email_pass_signup.dart';
+import 'package:flutterdoctor/home_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,6 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final Firestore _db = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +169,15 @@ class _LoginScreenState extends State<LoginScreen> {
       _auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((user) {
+        if (user != null) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        }
+        _db.collection("users").document(user.user.uid).setData({
+          "email": email,
+          "lastseen": DateTime.now(),
+        });
+
         showDialog(
             context: context,
             builder: (ctx) {
