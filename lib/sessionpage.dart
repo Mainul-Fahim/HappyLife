@@ -10,9 +10,6 @@ class _SessionPageState extends State<SessionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('Video session')),
-      ),
       body: IndexPage(),
     );
   }

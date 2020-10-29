@@ -8,6 +8,8 @@ import 'package:flutterdoctor/sessionpage.dart';
 import 'package:flutterdoctor/videorecordpage.dart';
 
 import 'billing.dart';
+import 'changecounselor.dart';
+import 'mindtest.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -22,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var _pages = [
     SessionPage(),
-    SchedulePage(),
+    EventCalendar(),
     ChatScreen(),
   ];
 
@@ -70,17 +72,31 @@ class _HomeScreenState extends State<HomeScreen> {
                           MaterialPageRoute(
                               builder: (context) => ProfileScreen()))
                     }),
-            CustomListTile(Icons.settings, 'settings', () => {}),
+            CustomListTile(
+                Icons.event_note,
+                'MindTest',
+                () => {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MindTest()))
+                    }),
             CustomListTile(
                 Icons.schedule,
-                'Appointment',
+                'VideoStatus',
                 () => {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => VideoRecord()))
                     }),
-            CustomListTile(Icons.change_history, 'Change Counselor', () => {}),
+            CustomListTile(
+                Icons.change_history,
+                'Change Counselor',
+                () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChangeCounselor()))
+                    }),
             CustomListTile(
                 Icons.account_balance_wallet,
                 'Billing Option',
@@ -88,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Payment()))
                     }),
-            CustomListTile(Icons.contact_phone, 'Contact', () => {}),
+            //CustomListTile(Icons.contact_phone, 'Contact', () => {}),
             CustomListTile(
                 Icons.lock,
                 'Log Out',
@@ -102,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
+            icon: Icon(Icons.videocam),
             title: Text("Session"),
           ),
           BottomNavigationBarItem(
@@ -110,8 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
             title: Text("Schedule"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text("Account"),
+            icon: Icon(Icons.chat),
+            title: Text("Chat"),
           ),
         ],
         currentIndex: _selectedPageIndex,

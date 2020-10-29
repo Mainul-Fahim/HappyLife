@@ -74,6 +74,9 @@ class _PaymentState extends State<Payment> {
         padding: const EdgeInsets.all(20),
         children: <Widget>[
           Divider(),
+          SizedBox(
+            height: 140,
+          ),
           RaisedButton(
             child: Text("Create Token with Card Form"),
             onPressed: () {
@@ -87,7 +90,7 @@ class _PaymentState extends State<Payment> {
               }).catchError(setError);
             },
           ),
-          Divider(),
+          //Divider(),
           RaisedButton(
             child: Text("Native payment"),
             onPressed: () {
